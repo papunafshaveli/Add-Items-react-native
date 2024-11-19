@@ -1,13 +1,14 @@
 import { FlatList, View, Text } from "react-native";
+
 import styles from "./styles";
-import SingleGoal from "../single-goal/SingleGoal";
+import { SingleGoal } from "..";
 
 type GoalItemProps = {
   goals: { text: string; id: string }[];
-  handleDelete: (id: string) => void;
+  handleSelectGoal: (id: string) => void;
 };
 
-const GoalItems: React.FC<GoalItemProps> = ({ goals, handleDelete }) => {
+const GoalItems: React.FC<GoalItemProps> = ({ goals, handleSelectGoal }) => {
   return (
     <View style={styles.goalsContainer}>
       <FlatList
@@ -15,7 +16,7 @@ const GoalItems: React.FC<GoalItemProps> = ({ goals, handleDelete }) => {
         data={goals}
         keyExtractor={(item) => item.id}
         renderItem={(itemData) => (
-          <SingleGoal handleDelete={handleDelete} itemData={itemData} />
+          <SingleGoal handleSelectGoal={handleSelectGoal} itemData={itemData} />
         )}
       />
     </View>

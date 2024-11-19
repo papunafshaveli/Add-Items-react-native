@@ -1,8 +1,16 @@
-import { Modal, Pressable, View, Text } from "react-native";
-import indexStyles from "./indexStyles";
-import { GoalButton, GoalInput, GoalItems } from "./components";
-import { useApp } from "./hooks";
 import { useState } from "react";
+import { Modal, Pressable, View, Text } from "react-native";
+
+import { useApp } from "./hooks";
+
+import indexStyles from "./indexStyles";
+import {
+  AddModal,
+  DeleteModal,
+  GoalButton,
+  GoalInput,
+  GoalItems,
+} from "./components";
 
 export default function Index() {
   const {
@@ -13,47 +21,49 @@ export default function Index() {
     setGoals,
   } = useApp();
 
-  const onDelete = (id: string) =>
-    setGoals((currentGoals) => {
-      return currentGoals.filter((goal) => goal.id !== id);
-    });
-
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [goalToDelete, setGoalToDelete] = useState("");
+
+  const handleSelectGoal = (id: string) => {
+    setGoalToDelete(id);
+    setIsDeleteModalVisible(true);
+  };
 
   const handleClose = () => setIsModalVisible(false);
 
-  const handleOpenModal = () => setIsModalVisible(true);
+  const deleteGoal = (id: string) => {
+    setGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== id);
+    });
+    setIsDeleteModalVisible(false);
+  };
 
   return (
     <View style={indexStyles.container}>
       {!isModalVisible && (
-        <Pressable onPress={handleOpenModal} style={indexStyles.openModalBtn}>
+        <Pressable
+          onPress={() => setIsModalVisible(true)}
+          style={indexStyles.openModalBtn}
+        >
           <Text>Open Modal</Text>
         </Pressable>
       )}
-      <Modal
-        onRequestClose={handleClose}
-        visible={isModalVisible}
-        transparent={true}
-        animationType="slide"
-      >
-        <View style={indexStyles.modalOverlay}>
-          <View style={indexStyles.modalContent}>
-            <View style={indexStyles.inputAndButton}>
-              <GoalInput
-                handleInputTextChange={handleInputTextChange}
-                inputText={inputText}
-              />
-              <GoalButton handleAddBtnClick={handleAddBtnClick} />
-            </View>
-            <Pressable onPress={handleClose}>
-              <Text>Close</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      <GoalItems goals={goals} handleDelete={onDelete} />
+      <AddModal
+        handleClose={handleClose}
+        isModalVisible={isModalVisible}
+        inputText={inputText}
+        handleInputTextChange={handleInputTextChange}
+        handleAddBtnClick={handleAddBtnClick}
+      />
+      {isDeleteModalVisible && (
+        <DeleteModal
+          handleDeleteModalClose={() => setIsDeleteModalVisible(false)}
+          handleDelete={() => deleteGoal(goalToDelete)}
+          isDeleteModalVisible={isDeleteModalVisible}
+        />
+      )}
+      <GoalItems goals={goals} handleSelectGoal={handleSelectGoal} />
     </View>
   );
 }

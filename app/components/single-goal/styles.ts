@@ -13,6 +13,12 @@ const styles = StyleSheet.create({
   pressedItem: {
     opacity: 0.5,
   },
+  delete: {
+    color: "red",
+    padding: 8,
+    fontSize: 12,
+    fontWeight: "bold",
+  },
 });
 
 export default styles;
