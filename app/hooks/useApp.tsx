@@ -26,6 +26,7 @@ const useApp = () => {
     handleInputTextChange,
     handleAddBtnClick,
     goals,
+    setGoals,
   };
 };
 
