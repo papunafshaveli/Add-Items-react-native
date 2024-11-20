@@ -16,7 +16,11 @@ const GoalItems: React.FC<GoalItemProps> = ({ goals, handleSelectGoal }) => {
         data={goals}
         keyExtractor={(item) => item.id}
         renderItem={(itemData) => (
-          <SingleGoal handleSelectGoal={handleSelectGoal} itemData={itemData} />
+          <SingleGoal
+            handleSelectGoal={handleSelectGoal}
+            itemData={itemData}
+            isLastItem={itemData.index === goals.length - 1}
+          />
         )}
       />
     </View>

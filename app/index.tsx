@@ -1,16 +1,11 @@
 import { useState } from "react";
-import { Modal, Pressable, View, Text } from "react-native";
+import { Pressable, View, Text, ScrollView } from "react-native";
 
 import { useApp } from "./hooks";
 
 import indexStyles from "./indexStyles";
-import {
-  AddModal,
-  DeleteModal,
-  GoalButton,
-  GoalInput,
-  GoalItems,
-} from "./components";
+import { AddModal, DeleteModal, GoalItems } from "./components";
+import { StatusBar } from "expo-status-bar";
 
 export default function Index() {
   const {
@@ -39,31 +34,41 @@ export default function Index() {
     setIsDeleteModalVisible(false);
   };
 
+  const handleAddModalOpen = () => {
+    setIsModalVisible(true);
+  };
+
   return (
-    <View style={indexStyles.container}>
-      {!isModalVisible && (
-        <Pressable
-          onPress={() => setIsModalVisible(true)}
-          style={indexStyles.openModalBtn}
-        >
-          <Text>Open Modal</Text>
-        </Pressable>
-      )}
-      <AddModal
-        handleClose={handleClose}
-        isModalVisible={isModalVisible}
-        inputText={inputText}
-        handleInputTextChange={handleInputTextChange}
-        handleAddBtnClick={handleAddBtnClick}
-      />
-      {isDeleteModalVisible && (
-        <DeleteModal
-          handleDeleteModalClose={() => setIsDeleteModalVisible(false)}
-          handleDelete={() => deleteGoal(goalToDelete)}
-          isDeleteModalVisible={isDeleteModalVisible}
+    <>
+      <StatusBar style="dark" />
+      <View style={indexStyles.container}>
+        {!isModalVisible && (
+          <Pressable
+            onPress={handleAddModalOpen}
+            style={indexStyles.openModalBtn}
+          >
+            <Text style={indexStyles.openModalText}>Add New Goals!</Text>
+          </Pressable>
+        )}
+
+        <GoalItems goals={goals} handleSelectGoal={handleSelectGoal} />
+
+        <AddModal
+          handleClose={handleClose}
+          isModalVisible={isModalVisible}
+          inputText={inputText}
+          handleInputTextChange={handleInputTextChange}
+          handleAddBtnClick={handleAddBtnClick}
         />
-      )}
-      <GoalItems goals={goals} handleSelectGoal={handleSelectGoal} />
-    </View>
+
+        {isDeleteModalVisible && (
+          <DeleteModal
+            handleDeleteModalClose={() => setIsDeleteModalVisible(false)}
+            handleDelete={() => deleteGoal(goalToDelete)}
+            isDeleteModalVisible={isDeleteModalVisible}
+          />
+        )}
+      </View>
+    </>
   );
 }

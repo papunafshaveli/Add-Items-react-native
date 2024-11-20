@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   },
   goalText: {
     padding: 8,
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: "bold",
   },
   pressedItem: {
@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     padding: 8,
     fontSize: 12,
     fontWeight: "bold",
+  },
+  lastGoalItem: {
+    marginBottom: 20,
   },
 });
 

@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "grey",
 
-    backgroundColor: "yellow",
+    backgroundColor: "#80C4E9",
 
     flex: 1,
   },

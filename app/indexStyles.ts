@@ -6,6 +6,7 @@ const indexStyles = StyleSheet.create({
     padding: 20,
 
     backgroundColor: "#C9E6F0",
+    paddingBottom: 60,
   },
 
   openModalBtn: {
@@ -15,6 +16,12 @@ const indexStyles = StyleSheet.create({
 
     borderWidth: 1,
     borderRadius: 10,
+    width: "100%",
+  },
+  openModalText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

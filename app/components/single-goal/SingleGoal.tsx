@@ -7,18 +7,20 @@ type SingleGoalProps = {
     item: { text: string; id: string };
   };
   handleSelectGoal: (id: string) => void;
+  isLastItem?: boolean;
 };
 
 const SingleGoal: React.FC<SingleGoalProps> = ({
   itemData,
   handleSelectGoal,
+  isLastItem,
 }) => {
   const onPressDelete = () => {
     handleSelectGoal(itemData.item.id);
   };
 
   return (
-    <View style={styles.goals}>
+    <View style={[styles.goals, isLastItem && styles.lastGoalItem]}>
       <Text style={styles.goalText}>{itemData.item.text}</Text>
       <Pressable
         style={({ pressed }) => pressed && styles.pressedItem}

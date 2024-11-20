@@ -1,4 +1,4 @@
-import { Modal, Pressable, View, Text } from "react-native";
+import { Modal, Pressable, View, Text, Image } from "react-native";
 import GoalInput from "../goal-input/GoalInput";
 import GoalButton from "../goal-button/GoalButton";
 import styles from "./styles";
@@ -27,6 +27,10 @@ const AddModal: React.FC<AddModalProps> = ({
     >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
+          <Image
+            source={require("../../../assets/images/goalImage.png")}
+            style={styles.image}
+          />
           <View style={styles.inputAndButton}>
             <GoalInput
               handleInputTextChange={handleInputTextChange}
